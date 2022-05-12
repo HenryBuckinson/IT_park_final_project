@@ -1,0 +1,25 @@
+spring:
+  main:
+    banner-mode: 'off'
+  application:
+    name: notebook
+  messages:
+    basename: i18n.messages
+  data:
+    mongodb:
+      uri: mongodb://localhost:27019/notebook
+      database: notebook
+
+mongock:
+  change-logs-scan-package: App.migration
+  runner-type: ApplicationRunner
+
+springdoc:
+  packages-to-scan: App.controller
+  api-docs:
+    path: /api-docs
+    enabled: true
+  swagger-ui:
+    path: /swagger-ui.html
+    enabled: true
+

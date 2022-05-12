@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Notebook</title>
+    <link rel="stylesheet" th:href="@{/css/notesStyle.css}" href="/css/notesStyle.css">
+    <script th:src="@{/js/jQuery.js}" src="/js/jQuery.js"></script>
+    <script th:src="@{/js/notes.js}" src="/js/notes.js"></script>
+</head>
+<body>
+
+<div id="tableDiv">
+    <table id="toDoListTable">
+        <thead>
+            <tr id="commonHead">
+                <td class="orderNumberHead"><b>№</b></td>
+                <td class="noteHead"><b>Заметка</b></td>
+                <td class="statusHead"><b>Статус</b></td>
+                <td class="dateHead"><b>Дата заметки</b></td>
+            </tr>
+        </thead>
+<!---->
+        <tbody id="tableBody">
+            <tr style="height: 18px;" th:each="item : ${allNotes}" th:method="get" class="rowInfo" id="onlyOneRow">
+                <td class="orderNumberHead" th:utext="${item.order}" id="orderNumber"></td>
+                <td class="noteHead">
+                    <label for="noteText"></label><input id="noteText" th:value="${item.note}" type="text">
+                </td>
+                <td class="statusHead">
+                    <label>
+                        <select id="statusNoteSelector">
+                            <option value="0" id="inProgressForCss" class="inProgress" th:selected="${item.is_Done == false}">В процессе</option>
+                            <option value="1" id="completeForCss" class="complete" th:selected="${item.is_Done == true}">Завершено</option>
+                        </select>
+                    </label>
+                </td>
+                <td class="dateHead" th:utext="${item.date}"></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div id="addRow">
+    <form th:action="@{/notes/add}" th:method="post">
+        <button type="submit"><img id="addButton" title="Add" th:src="@{/images/add.png}" alt="add note"/></button>
+    </form>
+</div>
+
+<div id="deleteRow">
+    <form th:action="@{/notes/delete}" th:method="post">
+        <button type="submit"><img id="deleteButton" title="Remove" th:src="@{/images/remove.png}" alt="remove note"/></button>
+    </form>
+</div>
+
+</body>
+</html>
