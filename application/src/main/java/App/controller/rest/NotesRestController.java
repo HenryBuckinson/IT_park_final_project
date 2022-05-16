@@ -9,47 +9,46 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/notes")
+@RequestMapping("/api/notes")
 public class NotesRestController {
 
     private final NotesService notesService;
 
     @Operation(summary = "Обновляет текстовое поле заметки по её индексу")
     @ResponseStatus(HttpStatus.OK)
-    @PutMapping(value = "/update/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/update/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Notes updateNote(@RequestBody NotesDto notedDto, @PathVariable("id") Long id) {
         notesService.updateNoteById(notedDto.getNote(), id);
         return new Notes(id,
                 "{Изменённый текст}",
-                new Date(new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Calendar.getInstance().getTime())),
+                DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss").format(LocalDateTime.now()),
                 false);
     }
 
     @Operation(summary = "Удаляет заметку с пустым текстовым полем по её индексу")
     @ResponseStatus(HttpStatus.OK)
-    @DeleteMapping("/update/{id}")
+    @DeleteMapping("/delete/{id}")
     public Notes deleteEmptyNote(@PathVariable("id") Long id) {
         notesService.deleteEmptyNoteById(id);
         return new Notes(id,
                 "{Пустая строка}",
-                new Date(new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Calendar.getInstance().getTime())),
+                DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss").format(LocalDateTime.now()),
                 true);
     }
 
     @Operation(summary = "Переключатель статуса заметки")
-    @PostMapping("/progress/{id}/{isDone}")
-    public Notes noteInProgress(@PathVariable("id") Long id, @PathVariable("isDone") String isDone) {
+    @PostMapping("/set-status/{id}")
+    public Notes noteInProgress(@PathVariable("id") Long id, @RequestParam("status") String isDone) {
         Boolean response = Boolean.parseBoolean(isDone);
         notesService.switchStatusOfNoteById(response, id);
         return new Notes(id,
                 "Заметка или запись",
-                new Date(new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Calendar.getInstance().getTime())),
+                DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss").format(LocalDateTime.now()),
                 response);
     }
 

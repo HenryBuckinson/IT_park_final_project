@@ -33,13 +33,13 @@ public class NotesServiceImpl implements NotesService {
     @Override
     @Transactional
     public void deleteTheLastRow() {
-        repository.customDeleteTheLastRow();
+        repository.removeTheLastRow();
     }
 
     @Override
     @Transactional
     public void updateNoteById(String text, Long id) {
-        repository.customUpdateNoteById(text, id);
+        repository.updateNoteById(text, id);
     }
 
     @Override
@@ -51,6 +51,6 @@ public class NotesServiceImpl implements NotesService {
     @Override
     @Transactional
     public void switchStatusOfNoteById(Boolean status, Long id) {
-        repository.updateNoteStatusById(status, id);
+        repository.switchNoteStatusById(status, id);
     }
 }

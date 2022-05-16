@@ -34,7 +34,7 @@ public class NotesController {
         return "redirect:/notes";
     }
 
-    @PostMapping ("/delete")
+    @PostMapping("/delete")
     public String deleteRow() {
         service.deleteTheLastRow();
         return "redirect:/notes";

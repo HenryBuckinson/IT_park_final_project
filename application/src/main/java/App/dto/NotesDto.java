@@ -4,9 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 import javax.validation.constraints.NotNull;
-import java.util.Date;
 
 @Data
 @NoArgsConstructor
@@ -17,7 +15,7 @@ public class NotesDto {
 
     private String note;
 
-    private Date date;
+    private String date;
 
     private Boolean is_Done;
 }

@@ -21,7 +21,7 @@ public class DefaultValueGeneratorService {
     public Long generateSequence(String seqName) {
 
         DBSequence counter = mongoOperations.findAndModify(query(where("_id").is(seqName)),
-                new Update().inc("seq",1), options().returnNew(true).upsert(true),
+                new Update().inc("seq", 1), options().returnNew(true).upsert(true),
                 DBSequence.class);
         return !Objects.isNull(counter) ? counter.getSeq() : 1;
 

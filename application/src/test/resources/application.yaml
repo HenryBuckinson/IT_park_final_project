@@ -13,6 +13,7 @@ spring:
 mongock:
   change-logs-scan-package: App.migration
   runner-type: ApplicationRunner
+  enabled: false
 
 springdoc:
   packages-to-scan: App.controller
@@ -29,19 +30,19 @@ management:
       exposure:
         include: "*"
     #        include: "health, info, metrics, prometheus"
-  endpoint:
-    health:
-      show-details: always
-  info:
+    endpoint:
+      health:
+        show-details: always
+    info:
       # Включает информацию о сборке (spring-boot-maven-plugin)
-    build:
-      enabled: true
+      build:
+        enabled: true
       # Включает информацию о приложении из application.yml
-    env:
-      enabled: true
+      env:
+        enabled: true
       # Включает информацию о git (git-commit-id-plugin)
-    git:
-      mode: "full"
+      git:
+        mode: "full"
 
 application:
   dependent-module-url: http://localhost:8085/common

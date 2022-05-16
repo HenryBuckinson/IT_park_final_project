@@ -3,11 +3,10 @@ package App.repository.custom;
 import App.model.Notes;
 
 public interface NotesCustomRepository {
-    Notes customDeleteTheLastRow();
+    Notes removeTheLastRow();
 
-    void customUpdateNoteById(String text, Long id);
+    void updateNoteById(String text, Long id);
 
-    void updateNoteStatusById(Boolean status, Long id);
+    void switchNoteStatusById(Boolean status, Long id);
 
-    void  updateNumeration();
 }

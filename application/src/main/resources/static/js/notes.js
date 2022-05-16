@@ -1,14 +1,14 @@
 $(document).ready(function () {
 
     $('.rowInfo > .noteHead > #noteText').on("keyup", function (event) {
-        if(event.keyCode === 13) {
+        if (event.keyCode === 13) {
             // alert("Enter")
             let textNote = $(this).val();
             let textOrder = this.parentNode.previousElementSibling.textContent;
             let numberOrder = Number(textOrder);
             if (textNote === "") {
                 $.ajax({
-                    url: '/notes/update/' + numberOrder,
+                    url: '/api/notes/delete/' + numberOrder,
                     type: 'DELETE',
                     success: function () {
                         alert('Пустая заметка удалена!');
@@ -17,7 +17,7 @@ $(document).ready(function () {
                 });
             } else {
                 $.ajax({
-                    url: '/notes/update/' + numberOrder,
+                    url: '/api/notes/update/' + numberOrder,
                     type: 'PUT',
                     headers: {
                         'Accept': 'application/json',
@@ -45,7 +45,7 @@ $(document).ready(function () {
         if (val === "0") {
             let response = String(false);
             $.ajax({
-                url: '/notes/progress/' + numberNoteOrder + "/" + response,
+                url: '/api/notes/set-status/' + numberNoteOrder + '/?status=' + response,
                 type: 'POST',
                 success: function () {
                     alert('Заметка в процессе выполнения');
@@ -56,7 +56,7 @@ $(document).ready(function () {
         if (val === "1") {
             let response = String(true);
             $.ajax({
-                url: '/notes/progress/' + numberNoteOrder + "/" + response,
+                url: '/api/notes/set-status/' + numberNoteOrder + "/?status=" + response,
                 type: 'POST',
                 success: function () {
                     alert('Заметка завершена!');
@@ -66,14 +66,14 @@ $(document).ready(function () {
         }
     })//скрипт для обработки статуса заметки
 
-    $(document).ready(function (){
-        $('#toDoListTable > #tableBody > #onlyOneRow').each(function (outerIndex, row){
+    $(document).ready(function () {
+        $('#toDoListTable > #tableBody > #onlyOneRow').each(function (outerIndex, row) {
             let val = row.querySelector('#statusNoteSelector').value;
-            if(val === "0"){
-                $(this).css('background-color','cornsilk');
+            if (val === "0") {
+                $(this).css('background-color', 'cornsilk');
             }
-            if(val === "1"){
-                $(this).css('background-color','darkseagreen');
+            if (val === "1") {
+                $(this).css('background-color', 'darkseagreen');
             }
         })
     })//скрипт для цветовой окраски строки при загрузке
