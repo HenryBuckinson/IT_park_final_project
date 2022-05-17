@@ -26,7 +26,9 @@ public class Notes {
     private String note = "New note...";
 
     @Field
-    private String date = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss").format(LocalDateTime.now());
+    private String date = DateTimeFormatter
+            .ofPattern("yyyy/MM/dd HH:mm:ss")
+            .format(LocalDateTime.now());
 
     @Field
     private Boolean is_Done = false;

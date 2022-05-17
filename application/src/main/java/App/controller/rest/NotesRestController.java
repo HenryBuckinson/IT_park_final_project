@@ -17,6 +17,8 @@ import java.time.format.DateTimeFormatter;
 @RequestMapping("/api/notes")
 public class NotesRestController {
 
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+
     private final NotesService notesService;
 
     @Operation(summary = "Обновляет текстовое поле заметки по её индексу")
@@ -26,7 +28,7 @@ public class NotesRestController {
         notesService.updateNoteById(notedDto.getNote(), id);
         return new Notes(id,
                 "{Изменённый текст}",
-                DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss").format(LocalDateTime.now()),
+                FORMATTER.format(LocalDateTime.now()),
                 false);
     }
 
@@ -37,7 +39,7 @@ public class NotesRestController {
         notesService.deleteEmptyNoteById(id);
         return new Notes(id,
                 "{Пустая строка}",
-                DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss").format(LocalDateTime.now()),
+                FORMATTER.format(LocalDateTime.now()),
                 true);
     }
 
@@ -48,7 +50,7 @@ public class NotesRestController {
         notesService.switchStatusOfNoteById(response, id);
         return new Notes(id,
                 "Заметка или запись",
-                DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss").format(LocalDateTime.now()),
+                FORMATTER.format(LocalDateTime.now()),
                 response);
     }
 
