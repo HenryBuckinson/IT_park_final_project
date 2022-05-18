@@ -33,6 +33,6 @@ Tests - JUnit Jupiter
 
 Additional: Mongock, Actuator, Swagger
 
-Project consist of two modules. The first moudle - bisness logic (port:8080), the second - logger (port:8085). The launch of the second module is at the discretion of the user.
+Project consist of two modules. The first moudle - business logic (port:8080), the second - logger (port:8085). The launch of the second module is at the discretion of the user.
 
 Application allow you to add, delete, change notes, and switch thier status.
